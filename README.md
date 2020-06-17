@@ -5,14 +5,6 @@ Taking ID809 high-performance processor and semiconductor fingerprint sensor as 
 The product supports UART communication. When working with Arduino library, it can easily realize functions like  fingerprint registration, fingerprint deletion, etc.<br>
 
 This fingerprint sensor comes with round breathing LEDs and has a simple structure, small size, and delicate appearance. The sensor offers fast recognition speed and high security. What’s more, it supports 360-degree arbitrary angle recognition and deep self-learning function, high performance and low power consumption.
-<br>
-<img src="./image/SEN0318-image.jpg">
-<br>
-
-* Arduino UNO
-<br>
-<img src="./image/SEN0318-CONNECT.jpg">
-<br>
 
    
 ## Table of Contents
