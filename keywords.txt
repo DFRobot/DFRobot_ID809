@@ -1,0 +1,74 @@
+#######################################
+# Syntax DFRobot_ID809
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+DFRobot_ID809	KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+
+begin	KEYWORD2
+isConnected	KEYWORD2
+setDeviceID	KEYWORD2
+setSecurityLevel	KEYWORD2
+setDuplicationCheck	KEYWORD2
+setBaudrate	KEYWORD2
+setAutoLearn	KEYWORD2
+getDeviceID	KEYWORD2
+getSecurityLevel	KEYWORD2
+getDuplicationCheck	KEYWORD2
+getBaudrate	KEYWORD2
+getAutoLearn	KEYWORD2
+getDeviceInfo	KEYWORD2
+setModuleSN	KEYWORD2
+getModuleSN	KEYWORD2
+ctrlLED	KEYWORD2
+detectFinger	KEYWORD2
+getEmptyID	KEYWORD2
+getStatusID	KEYWORD2
+getEnrollCount	KEYWORD2
+getEnrolledIDList	KEYWORD2
+collectionFingerprint	KEYWORD2
+storeFingerprint	KEYWORD2
+delFingerprint	KEYWORD2
+search	KEYWORD2
+verify	KEYWORD2
+match	KEYWORD2
+getBrokenQuantity	KEYWORD2
+getBrokenID	KEYWORD2
+loadFingerprint	KEYWORD2
+enterStandbyState	KEYWORD2
+getErrorDescription	KEYWORD2
+setDbgSerial	KEYWORD2
+
+#######################################
+# Constants (LITERAL1)
+#######################################
+
+eBreathing	LITERAL1
+eFastBlink	LITERAL1
+eKeepsOn	LITERAL1
+eNormalClose	LITERAL1
+eFadeIn	LITERAL1
+eFadeOut	LITERAL1
+eSlowBlink	LITERAL1
+eLEDGreen	LITERAL1
+eLEDRed	LITERAL1
+eLEDYellow	LITERAL1
+eLEDBlue	LITERAL1
+eLEDCyan	LITERAL1
+eLEDMagenta	LITERAL1
+eLEDWhite	LITERAL1
+e9600bps	LITERAL1
+e19200bps	LITERAL1
+e38400bps	LITERAL1
+e57600bps	LITERAL1
+e115200bps	LITERAL1
+e230400bps	LITERAL1
+e460800bps	LITERAL1
+e921600bps	LITERAL1
