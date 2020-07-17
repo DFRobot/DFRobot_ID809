@@ -37,6 +37,7 @@ void setup(){
     /*Take FPSerial as communication port of fingerprint module */
     fingerprint.begin(FPSerial);
     i++;
+    if(i > 7) i = 0;
   }while(fingerprint.isConnected() == false);
   Serial.println(" ");
 }
