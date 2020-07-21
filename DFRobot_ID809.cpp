@@ -148,7 +148,7 @@ uint8_t DFRobot_ID809::setModuleSN(const char* SN){
     char data[2];
     data[0] = MODULE_SN_SIZE;
     if(strlen(SN) > MODULE_SN_SIZE){
-        LDBG("SN号超过15位");
+        LDBG("The serial number exceeds 15 characters");
         return ERR_ID809;
     }
     pCmdPacketHeader_t header = pack(CMD_TYPE, CMD_SET_MODULE_SN, data, 2);
@@ -295,10 +295,13 @@ uint8_t DFRobot_ID809::getEnrolledIDList(uint8_t* list)
 
 uint8_t DFRobot_ID809::storeFingerprint(uint8_t ID){
     char data[4] = {0};
-    uint8_t ret = merge();
-    LDBG("ret=");LDBG(ret);
-    if(ret != ERR_SUCCESS){
-        return ERR_ID809;
+    uint8_t ret;
+    if(_number > 1){
+        ret = merge();
+        LDBG("ret=");LDBG(ret);
+        if(ret != ERR_SUCCESS){
+          return ERR_ID809;
+        }
     }
     _number = 0;
     data[0] = ID;
