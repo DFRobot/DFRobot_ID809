@@ -296,12 +296,10 @@ uint8_t DFRobot_ID809::getEnrolledIDList(uint8_t* list)
 uint8_t DFRobot_ID809::storeFingerprint(uint8_t ID){
     char data[4] = {0};
     uint8_t ret;
-    if(_number > 1){
-        ret = merge();
-        LDBG("ret=");LDBG(ret);
-        if(ret != ERR_SUCCESS){
-          return ERR_ID809;
-        }
+    ret = merge();
+    LDBG("ret=");LDBG(ret);
+    if(ret != ERR_SUCCESS){
+        return ERR_ID809;
     }
     _number = 0;
     data[0] = ID;
