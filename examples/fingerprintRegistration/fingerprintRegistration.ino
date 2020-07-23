@@ -16,7 +16,7 @@
 
 #include <DFRobot_ID809.h>
 
-#define COLLECT_NUMBER 3  //Fingerprint sampling times, can be set to 1-3
+#define COLLECT_NUMBER 3  //Fingerprint sampling times, can be set to 2-3
 
 /*Use software serial when using UNO or NANO */
 #if ((defined ARDUINO_AVR_UNO) || (defined ARDUINO_AVR_NANO))
