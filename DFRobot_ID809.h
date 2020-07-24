@@ -140,10 +140,7 @@ public:
     e19200bps,
     e38400bps,
     e57600bps,
-    e115200bps,
-    e230400bps,
-    e460800bps,
-    e921600bps
+    e115200bps
   }eDeviceBaudrate_t;
   
   typedef enum{
