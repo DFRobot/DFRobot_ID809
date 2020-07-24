@@ -74,10 +74,8 @@ void loop(){
   Serial.println(fingerprint.getSecurityLevel());
   
   /*Set module baud rate, available range: 
-    e9600bps    e19200bps   e38400bps   e57600bps
-       1           2            3          4
-    e115200bps  e230400bps  e460800bps  e921600bps
-       5           6            7          8
+    e9600bps    e19200bps   e38400bps   e57600bps    e115200bps
+       1           2            3          4             5
    */
   //fingerprint.setBaudrate(fingerprint.e115200bps);
   Serial.print("Module baud rate: ");
