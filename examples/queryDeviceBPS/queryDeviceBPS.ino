@@ -23,7 +23,7 @@
 
 DFRobot_ID809 fingerprint;
 
-uint32_t ID809_BPS[8] = {9600, 19200, 38400, 57600, 115200, 230400, 460800, 921600};
+uint32_t ID809_BPS[5] = {9600, 19200, 38400, 57600, 115200};
 uint8_t i = 0;
 
 void setup(){
@@ -37,7 +37,7 @@ void setup(){
     /*Take FPSerial as communication port of fingerprint module */
     fingerprint.begin(FPSerial);
     i++;
-    if(i > 7) i = 0;
+    if(i > 4) i = 0;
   }while(fingerprint.isConnected() == false);
   Serial.println(" ");
 }
