@@ -23,7 +23,7 @@
 #endif
 
 DFRobot_ID809 fingerprint;
-String desc;
+//String desc;
 
 void setup(){
   /*Init print serial port*/
@@ -40,8 +40,8 @@ void setup(){
   while(fingerprint.isConnected() == false){
     Serial.println("Communication with device failed, please check connection");
     /*Get error code information*/
-    desc = fingerprint.getErrorDescription();
-    Serial.println(desc);
+    //desc = fingerprint.getErrorDescription();
+    //Serial.println(desc);
     delay(1000);
   }
 }
@@ -61,7 +61,7 @@ void loop(){
     This parameter will only be valid in mode eBreathing, eFastBlink, eSlowBlink
    */
   fingerprint.ctrlLED(/*LEDMode = */fingerprint.eBreathing, /*LEDColor = */fingerprint.eLEDBlue, /*blinkCount = */0);
-  /*Capture fingerprint image, 10s idle timeout 
+  /*Capture fingerprint image, 10s idle timeout, if timeout=0,Disable  the collection timeout function
     If succeed return 0, otherwise return ERR_ID809
    */
   if((fingerprint.collectionFingerprint(/*timeout=*/10)) != ERR_ID809){
@@ -85,8 +85,8 @@ void loop(){
   }else{
     Serial.println("Capturing fails");
     /*Get error code information*/
-    desc = fingerprint.getErrorDescription();
-    Serial.println(desc);
+    //desc = fingerprint.getErrorDescription();
+    //Serial.println(desc);
     /*Set fingerprint LED ring to always ON in red*/
     fingerprint.ctrlLED(/*LEDMode = */fingerprint.eKeepsOn, /*LEDColor = */fingerprint.eLEDRed, /*blinkCount = */0);
   }

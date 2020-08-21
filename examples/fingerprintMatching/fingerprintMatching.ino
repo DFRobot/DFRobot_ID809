@@ -23,7 +23,7 @@
 #endif
 
 DFRobot_ID809 fingerprint;
-String desc;
+//String desc;
 
 void setup(){
   /*Init print serial port*/
@@ -40,8 +40,8 @@ void setup(){
   while(fingerprint.isConnected() == false){
     Serial.println("Communication with device failed, please check connection");
     /*Get error code information*/
-    desc = fingerprint.getErrorDescription();
-    Serial.println(desc);
+    //desc = fingerprint.getErrorDescription();
+    //Serial.println(desc);
     delay(1000);
   }
 }
@@ -62,42 +62,42 @@ void loop(){
    */
   fingerprint.ctrlLED(/*LEDMode = */fingerprint.eBreathing, /*LEDColor = */fingerprint.eLEDBlue, /*blinkCount = */0);
   Serial.println("Please press down your finger");
-  /*Capture fingerprint image, 10s idle timeout 
+  /*Capture fingerprint image, Disable the collection timeout function 
     If succeed return 0, otherwise return ERR_ID809
    */
-  if((fingerprint.collectionFingerprint(/*timeout=*/10)) != ERR_ID809){
+  if((fingerprint.collectionFingerprint(/*timeout=*/0)) != ERR_ID809){
     /*Set fingerprint LED ring to quick blink in yellow 3 times*/
     fingerprint.ctrlLED(/*LEDMode = */fingerprint.eFastBlink, /*LEDColor = */fingerprint.eLEDYellow, /*blinkCount = */3);
     Serial.println("Capturing succeeds");
+      Serial.println("Please release your finger");
+    /*Wait for finger to release
+      Return 1 when finger is detected, otherwise return 0 
+     */
+    while(fingerprint.detectFinger());
+    
+    /*Compare the captured fingerprint with all the fingerprints in the fingerprint library 
+      Return fingerprint ID(1-80) if succeed, return 0 when failed 
+     */
+    ret = fingerprint.search();
+    /*Compare the captured fingerprint with a fingerprint of specific ID 
+      Return fingerprint ID(1-80) if succeed, return 0 when failed 
+     */
+    //ret = fingerprint.verify(/*Fingerprint ID = */1);  
+    if(ret != 0){
+      /*Set fingerprint LED ring to always ON in green */
+      fingerprint.ctrlLED(/*LEDMode = */fingerprint.eKeepsOn, /*LEDColor = */fingerprint.eLEDGreen, /*blinkCount = */0);
+      Serial.print("Matching succeeds,ID=");
+      Serial.println(ret);
+    }else{
+      /*Set fingerprint LED ring to always ON in red*/
+      fingerprint.ctrlLED(/*LEDMode = */fingerprint.eKeepsOn, /*LEDColor = */fingerprint.eLEDRed, /*blinkCount = */0);
+      Serial.println("Matching fails");
+    }
   }else{
     Serial.println("Capturing fails");
     /*Get error code information*/
-    desc = fingerprint.getErrorDescription();
-    Serial.println(desc);
-  }
-  Serial.println("Please release your finger");
-  /*Wait for finger to release
-    Return 1 when finger is detected, otherwise return 0 
-   */
-  while(fingerprint.detectFinger());
-  
-  /*Compare the captured fingerprint with all the fingerprints in the fingerprint library 
-    Return fingerprint ID(1-80) if succeed, return 0 when failed 
-   */
-  ret = fingerprint.search();
-  /*Compare the captured fingerprint with a fingerprint of specific ID 
-    Return fingerprint ID(1-80) if succeed, return 0 when failed 
-   */
-  //ret = fingerprint.verify(/*Fingerprint ID = */1);  
-  if(ret != 0){
-    /*Set fingerprint LED ring to always ON in green */
-    fingerprint.ctrlLED(/*LEDMode = */fingerprint.eKeepsOn, /*LEDColor = */fingerprint.eLEDGreen, /*blinkCount = */0);
-    Serial.print("Matching succeeds,ID=");
-    Serial.println(ret);
-  }else{
-    /*Set fingerprint LED ring to always ON in red*/
-    fingerprint.ctrlLED(/*LEDMode = */fingerprint.eKeepsOn, /*LEDColor = */fingerprint.eLEDRed, /*blinkCount = */0);
-    Serial.println("Matching fails");
+    //desc = fingerprint.getErrorDescription();
+    //Serial.println(desc);
   }
   Serial.println("-----------------------------");
   delay(1000);

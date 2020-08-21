@@ -28,7 +28,7 @@
 #endif
 
 DFRobot_ID809 fingerprint;
-String desc;
+//String desc;
 
 void setup(){
   /*Init print serial port */
@@ -45,8 +45,8 @@ void setup(){
   while(fingerprint.isConnected() == false){
     Serial.println("Communication with device failed, please check connection");
     /*Get error code information*/
-    desc = fingerprint.getErrorDescription();
-    Serial.println(desc);
+    //desc = fingerprint.getErrorDescription();
+    //Serial.println(desc);
     delay(1000);
   }
 }
@@ -61,8 +61,8 @@ void loop(){
   if((ID = fingerprint.getEmptyID()) == ERR_ID809){
     while(1){
       /*Get error code information*/
-      desc = fingerprint.getErrorDescription();
-      Serial.println(desc);
+      //desc = fingerprint.getErrorDescription();
+      //Serial.println(desc);
       delay(1000);
     }
   }
@@ -87,7 +87,7 @@ void loop(){
     Serial.print(i+1);
     Serial.println("(th) is being taken");
     Serial.println("Please press down your finger");
-    /*Capture fingerprint image, 10s idle timeout 
+    /*Capture fingerprint image, 10s idle timeout, if timeout=0,Disable  the collection timeout function
       IF succeeded, return 0, otherwise, return ERR_ID809
      */
     if((fingerprint.collectionFingerprint(/*timeout = */10)) != ERR_ID809){
@@ -98,8 +98,8 @@ void loop(){
     }else{
       Serial.println("Sampling failed");
       /*Get error code information*/
-      desc = fingerprint.getErrorDescription();
-      Serial.println(desc);
+      //desc = fingerprint.getErrorDescription();
+      //Serial.println(desc);
     }
     Serial.println("Please release your finger");
     /*Wait for finger to release 
@@ -122,7 +122,7 @@ void loop(){
   }else{
     Serial.println("Saving failed");
     /*Get error code information*/
-    desc = fingerprint.getErrorDescription();
-    Serial.println(desc);
+    //desc = fingerprint.getErrorDescription();
+    //Serial.println(desc);
   }
 }

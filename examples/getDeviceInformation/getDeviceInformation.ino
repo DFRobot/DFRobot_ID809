@@ -23,7 +23,7 @@
 #endif
 
 DFRobot_ID809 fingerprint;
-String desc;
+//String desc;
 
 void setup(){
   /*Init print serial port */
@@ -40,8 +40,8 @@ void setup(){
   while(fingerprint.isConnected() == false){
     Serial.println("Communication with device failed, please check connection");
     /*Get error code information */
-    desc = fingerprint.getErrorDescription();
-    Serial.println(desc);
+    //desc = fingerprint.getErrorDescription();
+    //Serial.println(desc);
     delay(1000);
   }
 }

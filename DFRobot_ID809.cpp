@@ -470,13 +470,15 @@ uint8_t DFRobot_ID809::collectionFingerprint(uint16_t timeout){  //Collect finge
         return ERR_ID809;
     }
     while(!detectFinger()){
-        delay(10);
-        if(++i > timeout*10){
-            _error = eErrorTimeOut;
-            LDBG("Acquisition timeout ");
-            LDBG("ret=");LDBG(ret);
-            return ERR_ID809;
-        }
+        if(timeout != 0){
+            delay(10);
+            if(++i > timeout*10){
+                _error = eErrorTimeOut;
+                LDBG("Acquisition timeout ");
+                LDBG("ret=");LDBG(ret);
+                return ERR_ID809;
+            }
+       }
     }
     ret = getImage();
     LDBG("ret=");LDBG(ret);
