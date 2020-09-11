@@ -19,7 +19,7 @@
 #include <DFRobot_ID809.h>
 
 #define COLLECT_NUMBER 3  //Fingerprint sampling times, can be set to 1-3
-#define WAKEUP         6  //wake up pin 
+#define IRQ         6  //IRQ pin 
 
 /*Use software serial when using UNO or NANO*/
 #if ((defined ARDUINO_AVR_UNO) || (defined ARDUINO_AVR_NANO))
@@ -56,7 +56,7 @@ void setup(){
 
 //Blue LED Comparison mode  Yellow LED Registration mode  Red Deletion mode 
 void loop(){
-  if(digitalRead(WAKEUP)){
+  if(digitalRead(IRQ)){
     uint16_t i = 0;
     /*Capture fingerprint image, 5s idle timeout, if timeout=0,Disable  the collection timeout function
       Return 0 if succeed, otherwise return ERR_ID809
