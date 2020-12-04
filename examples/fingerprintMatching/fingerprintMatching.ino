@@ -46,9 +46,8 @@ void setup(){
   }
 }
 
-uint8_t ret;
-
 void loop(){
+  uint8_t ret = 0;
   /*Set fingerprint LED ring mode, color, and number of blinks
     Can be set as follows:
     Parameter 1:<LEDMode>
