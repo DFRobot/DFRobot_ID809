@@ -487,6 +487,7 @@ private:
   static const sErrorDescription_t /*PROGMEM*/ errorDescriptionsTable[26];   //Error information list 
   
   uint8_t _number = 0;       //Fingerprint acquisistion times 
+  uint8_t _state = 0;        //Collect fingerprint state
   eError_t _error;           //Error code 
   uint16_t _PacketSize = 0;  //Data packet length to be sent 
 };

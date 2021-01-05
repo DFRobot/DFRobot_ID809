@@ -329,38 +329,44 @@ uint8_t DFRobot_ID809::delFingerprint(uint8_t ID){
 }
 
 uint8_t DFRobot_ID809::search(){
-    char data[6] = {0};
-    data[2] = 1;
-    data[4] = FINGERPRINT_CAPACITY;
-    _number = 0;
-    pCmdPacketHeader_t header = pack(CMD_TYPE, CMD_SEARCH, data, 6);
-    sendPacket(header);
-    free(header);
-    uint8_t ret = responsePayload(buf);
-    LDBG("ret=");LDBG(ret);
-    if(ret == ERR_SUCCESS){
-        ret = buf[0];
-    }else{
-        ret = 0;
+    if(_state == 1){
+        char data[6] = {0};
+        data[2] = 1;
+        data[4] = FINGERPRINT_CAPACITY;
+        _number = 0;
+        pCmdPacketHeader_t header = pack(CMD_TYPE, CMD_SEARCH, data, 6);
+        sendPacket(header);
+        free(header);
+        uint8_t ret = responsePayload(buf);
+        LDBG("ret=");LDBG(ret);
+        if(ret == ERR_SUCCESS){
+            ret = buf[0];
+        }else{
+            ret = 0;
+        }
+        return ret;
     }
-    return ret;
+    return 0;
 }
 
 uint8_t DFRobot_ID809::verify(uint8_t ID){
-    char data[4] = {0};
-    data[0] = ID;
-    _number = 0;
-    pCmdPacketHeader_t header = pack(CMD_TYPE, CMD_VERIFY, data, 4);
-    sendPacket(header);
-    free(header);
-    uint8_t ret = responsePayload(buf);
-    LDBG("ret=");LDBG(ret);
-    if(ret == ERR_SUCCESS){
-        ret = buf[0];
-    }else{
-        ret = 0;
+    if(_state == 1){
+        char data[4] = {0};
+        data[0] = ID;
+        _number = 0;
+        pCmdPacketHeader_t header = pack(CMD_TYPE, CMD_VERIFY, data, 4);
+        sendPacket(header);
+        free(header);
+        uint8_t ret = responsePayload(buf);
+        LDBG("ret=");LDBG(ret);
+        if(ret == ERR_SUCCESS){
+            ret = buf[0];
+        }else{
+            ret = 0;
+        }
+        return ret;
     }
-    return ret;
+    return 0;
 }
 
 uint8_t DFRobot_ID809::match(uint8_t RamBufferID0, uint8_t RamBufferID1){
@@ -476,6 +482,7 @@ uint8_t DFRobot_ID809::collectionFingerprint(uint16_t timeout){  //Collect finge
                 _error = eErrorTimeOut;
                 LDBG("Acquisition timeout ");
                 LDBG("ret=");LDBG(ret);
+                _state = 0;
                 return ERR_ID809;
             }
        }
@@ -483,14 +490,17 @@ uint8_t DFRobot_ID809::collectionFingerprint(uint16_t timeout){  //Collect finge
     ret = getImage();
     LDBG("ret=");LDBG(ret);
     if(ret != ERR_SUCCESS){
+        _state = 0;
         return ERR_ID809;
     }
     ret = generate(_number);
     LDBG("ret=");LDBG(ret);
     if(ret != ERR_SUCCESS){
+        _state = 0;
         return ERR_ID809;
     }
     _number++;
+    _state = 1;
     return ret;
 }
 
