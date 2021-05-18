@@ -260,13 +260,7 @@ public:
    * @return Status：1(ON), 0(OFF) or ERR_ID809
    */
   uint8_t getSelfLearn();
-  uint8_t getTemplate(uint16_t id,uint8_t * temp);
-  uint8_t downLoadTemplate(uint16_t id,uint8_t * temp);
-  uint8_t getFingerImage(uint8_t *image);
-  uint8_t downLoadImage(uint16_t id,uint8_t * temp);
-  uint8_t receiveImageData(uint8_t *image);
-  uint8_t getQuarterFingerImage(uint8_t *image);
-  uint8_t contrastTemplate(uint8_t *temp);
+   
   /**
    * @brief Read device number 
    * @return Device number
@@ -329,7 +323,7 @@ public:
    * @brief Fingerprint acquisition 
    * @return 0(succeed) or ERR_ID809
    */
-  uint8_t collectionFingerprint(uint16_t timeout,int ramNumber = -1);
+  uint8_t collectionFingerprint(uint16_t timeout);
   
   /**
    * @brief Save fingerprint 
@@ -483,8 +477,6 @@ protected:
    * @return CKS
    */
   uint16_t getRcmCKS(pRcmPacketHeader_t packet);
-  uint8_t store(uint8_t ID);
-  bool ISIIC = true;
   
 private:
   Stream *s;

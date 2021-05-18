@@ -46,15 +46,6 @@ enterStandbyState	KEYWORD2
 getErrorDescription	KEYWORD2
 setDbgSerial	KEYWORD2
 
-getSelfLearn	KEYWORD2
-getTemplate	KEYWORD2
-downLoadTemplate	KEYWORD2
-getFingerImage	KEYWORD2
-downLoadImage	KEYWORD2
-receiveImageData	KEYWORD2
-getQuarterFingerImage	KEYWORD2
-contrastTemplate	KEYWORD2
-
 #######################################
 # Constants (LITERAL1)
 #######################################
