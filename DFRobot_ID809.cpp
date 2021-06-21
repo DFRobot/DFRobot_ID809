@@ -35,6 +35,7 @@ bool DFRobot_ID809::begin(Stream &s_){
 
 bool DFRobot_ID809::isConnected(){
     pCmdPacketHeader_t header = pack(CMD_TYPE, CMD_TEST_CONNECTION, NULL, 0);
+	if (header == NULL) return false;
     sendPacket(header);
     free(header);
     uint8_t ret = responsePayload(buf);
@@ -124,6 +125,7 @@ String DFRobot_ID809::getDeviceInfo(){
     char *data;
     uint8_t result;
     pCmdPacketHeader_t header = pack(CMD_TYPE, CMD_DEVICE_INFO, NULL, 0);
+    if (header == NULL) return NULL;
     sendPacket(header);
     free(header);
     result = responsePayload(buf);
@@ -152,6 +154,7 @@ uint8_t DFRobot_ID809::setModuleSN(const char* SN){
         return ERR_ID809;
     }
     pCmdPacketHeader_t header = pack(CMD_TYPE, CMD_SET_MODULE_SN, data, 2);
+    if (header == NULL) return ERR_ID809;                                               // if malloc call failed exit 
     sendPacket(header);
     free(header);
     uint8_t ret = responsePayload(buf);
@@ -160,6 +163,7 @@ uint8_t DFRobot_ID809::setModuleSN(const char* SN){
         return ERR_ID809;
     }
     header = pack(DATA_TYPE, CMD_SET_MODULE_SN, SN, MODULE_SN_SIZE);
+    if (header == NULL) return ERR_ID809;                                               // if malloc call failed exit 
     sendPacket(header);
     free(header);
     ret = responsePayload(buf);
@@ -173,6 +177,7 @@ uint8_t DFRobot_ID809::setModuleSN(const char* SN){
 String DFRobot_ID809::getModuleSN(){
     char *data;
     pCmdPacketHeader_t header = pack(CMD_TYPE, CMD_GET_MODULE_SN, NULL, 0);
+    if (header == NULL) return NULL;
     sendPacket(header);
     free(header);
     uint8_t result = responsePayload(buf);
@@ -199,6 +204,7 @@ uint8_t DFRobot_ID809::ctrlLED(eLEDMode_t mode,eLEDColor_t color,uint8_t blinkCo
     data[2] = data[1] = color;
     data[3] = blinkCount;
     pCmdPacketHeader_t header = pack(CMD_TYPE, CMD_SLED_CTRL, data, 4);
+    if (header == NULL) return ERR_ID809;                                               // if malloc call failed exit 
     sendPacket(header);
     free(header);
     uint8_t ret = responsePayload(buf);
@@ -208,6 +214,7 @@ uint8_t DFRobot_ID809::ctrlLED(eLEDMode_t mode,eLEDColor_t color,uint8_t blinkCo
 
 uint8_t DFRobot_ID809::detectFinger(){
     pCmdPacketHeader_t header = pack(CMD_TYPE, CMD_FINGER_DETECT, NULL, 0);
+    if (header == NULL) return ERR_ID809;                                               // if malloc call failed exit 
     sendPacket(header);
     free(header);
     uint8_t ret = responsePayload(buf);
@@ -223,6 +230,7 @@ uint8_t DFRobot_ID809::getEmptyID(){
     data[0] = 1;
     data[2] = FINGERPRINT_CAPACITY;     //80 fingerprints at most, default to full range 
     pCmdPacketHeader_t header = pack(CMD_TYPE, CMD_GET_EMPTY_ID, data, 4);
+    if (header == NULL) return ERR_ID809;                                               // if malloc call failed exit 
     sendPacket(header);
     free(header);
     uint8_t ret = responsePayload(buf);
@@ -237,6 +245,7 @@ uint8_t DFRobot_ID809::getStatusID(uint8_t ID){
     char data[2] = {0};
     data[0] = ID;
     pCmdPacketHeader_t header = pack(CMD_TYPE, CMD_GET_STATUS, data, 2);
+    if (header == NULL) return ERR_ID809;                                               // if malloc call failed exit 
     sendPacket(header);
     free(header);
     uint8_t ret = responsePayload(buf);
@@ -252,6 +261,7 @@ uint8_t DFRobot_ID809::getEnrollCount(){
     data[0] = 1;
     data[2] = FINGERPRINT_CAPACITY;
     pCmdPacketHeader_t header = pack(CMD_TYPE, CMD_GET_ENROLL_COUNT, data, 4);
+    if (header == NULL) return ERR_ID809;                                               // if malloc call failed exit 
     sendPacket(header);
     free(header);
     uint8_t ret = responsePayload(buf);
@@ -268,6 +278,7 @@ uint8_t DFRobot_ID809::getEnrolledIDList(uint8_t* list)
     char *data;
     uint8_t i = 0;
     pCmdPacketHeader_t header = pack(CMD_TYPE, CMD_GET_ENROLLED_ID_LIST, NULL, 0);
+    if (header == NULL) return ERR_ID809;                                               // if malloc call failed exit 
     sendPacket(header);
     free(header);
     uint8_t ret = responsePayload(buf);
@@ -304,6 +315,7 @@ uint8_t DFRobot_ID809::storeFingerprint(uint8_t ID){
     _number = 0;
     data[0] = ID;
     pCmdPacketHeader_t header = pack(CMD_TYPE, CMD_STORE_CHAR, data, 4);
+    if (header == NULL) return ERR_ID809;                                               // if malloc call failed exit 
     sendPacket(header);
     free(header);
     ret = responsePayload(buf);
@@ -321,6 +333,7 @@ uint8_t DFRobot_ID809::delFingerprint(uint8_t ID){
         data[0] = data[2] = ID;
     }
     pCmdPacketHeader_t header = pack(CMD_TYPE, CMD_DEL_CHAR, data, 4);
+    if (header == NULL) return ERR_ID809;                                               // if malloc call failed exit 
     sendPacket(header);
     free(header);
     uint8_t ret = responsePayload(buf);
@@ -335,6 +348,7 @@ uint8_t DFRobot_ID809::search(){
         data[4] = FINGERPRINT_CAPACITY;
         _number = 0;
         pCmdPacketHeader_t header = pack(CMD_TYPE, CMD_SEARCH, data, 6);
+        if (header == NULL) return ERR_ID809;                                               // if malloc call failed exit 
         sendPacket(header);
         free(header);
         uint8_t ret = responsePayload(buf);
@@ -355,6 +369,7 @@ uint8_t DFRobot_ID809::verify(uint8_t ID){
         data[0] = ID;
         _number = 0;
         pCmdPacketHeader_t header = pack(CMD_TYPE, CMD_VERIFY, data, 4);
+        if (header == NULL) return ERR_ID809;                                               // if malloc call failed exit 
         sendPacket(header);
         free(header);
         uint8_t ret = responsePayload(buf);
@@ -374,6 +389,7 @@ uint8_t DFRobot_ID809::match(uint8_t RamBufferID0, uint8_t RamBufferID1){
     data[0] = RamBufferID0;
     data[2] = RamBufferID1;
     pCmdPacketHeader_t header = pack(CMD_TYPE, CMD_MATCH, data, 4);
+    if (header == NULL) return ERR_ID809;                                               // if malloc call failed exit 
     sendPacket(header);
     free(header);
     uint8_t ret = responsePayload(buf);
@@ -391,6 +407,7 @@ uint8_t DFRobot_ID809::getBrokenQuantity(){
     data[0] = 1;
     data[2] = FINGERPRINT_CAPACITY;
     pCmdPacketHeader_t header = pack(CMD_TYPE, CMD_GET_BROKEN_ID, data, 4);
+    if (header == NULL) return ERR_ID809;                                               // if malloc call failed exit 
     sendPacket(header);
     free(header);
     uint8_t ret = responsePayload(buf);
@@ -406,6 +423,7 @@ uint8_t DFRobot_ID809::getBrokenID(){
     data[0] = 1;
     data[2] = FINGERPRINT_CAPACITY;
     pCmdPacketHeader_t header = pack(CMD_TYPE, CMD_GET_BROKEN_ID, data, 4);
+    if (header == NULL) return ERR_ID809;                                               // if malloc call failed exit 
     sendPacket(header);
     free(header);
     uint8_t ret = responsePayload(buf);
@@ -421,6 +439,7 @@ uint8_t DFRobot_ID809::loadFingerprint(uint8_t ID, uint8_t RamBufferID){
     data[0] = ID;
     data[2] = RamBufferID;
     pCmdPacketHeader_t header = pack(CMD_TYPE, CMD_LOAD_CHAR, data, 4);
+    if (header == NULL) return ERR_ID809;                                               // if malloc call failed exit 
     sendPacket(header);
     free(header);
     uint8_t ret = responsePayload(buf);
@@ -430,6 +449,7 @@ uint8_t DFRobot_ID809::loadFingerprint(uint8_t ID, uint8_t RamBufferID){
 
 uint8_t DFRobot_ID809::enterSleepState(){
     pCmdPacketHeader_t header = pack(CMD_TYPE, CMD_ENTER_STANDBY_STATE, NULL, 0);
+    if (header == NULL) return ERR_ID809;                                               // if malloc call failed exit 
     sendPacket(header);
     free(header);
     uint8_t ret = responsePayload(buf);
@@ -439,6 +459,7 @@ uint8_t DFRobot_ID809::enterSleepState(){
 
 uint8_t DFRobot_ID809::setParam(uint8_t* data){
     pCmdPacketHeader_t header = pack(CMD_TYPE, CMD_SET_PARAM, (const char *)data, 5);
+    if (header == NULL) return ERR_ID809;                                               // if malloc call failed exit 
     sendPacket(header);
     free(header);
     uint8_t ret = responsePayload(buf);
@@ -448,6 +469,7 @@ uint8_t DFRobot_ID809::setParam(uint8_t* data){
 
 uint8_t DFRobot_ID809::getParam(uint8_t* data){
     pCmdPacketHeader_t header = pack(CMD_TYPE, CMD_GET_PARAM, (const char *)data, 1);
+    if (header == NULL) return ERR_ID809;                                               // if malloc call failed exit 
     sendPacket(header);
     free(header);
     uint8_t ret = responsePayload(buf);
@@ -460,6 +482,7 @@ uint8_t DFRobot_ID809::getParam(uint8_t* data){
 
 uint8_t DFRobot_ID809::getImage(){
     pCmdPacketHeader_t header = pack(CMD_TYPE, CMD_GET_IMAGE, NULL, 0);
+    if (header == NULL) return ERR_ID809;                                               // if malloc call failed exit 
     sendPacket(header);
     free(header);
     uint8_t ret = responsePayload(buf);
@@ -508,6 +531,7 @@ uint8_t DFRobot_ID809::generate(uint8_t RamBufferID){
     char data[2] = {0};
     data[0] = RamBufferID;
     pCmdPacketHeader_t header = pack(CMD_TYPE, CMD_GENERATE, (const char *)data, 2);
+    if (header == NULL) return ERR_ID809;                                               // if malloc call failed exit 
     sendPacket(header);
     free(header);
     uint8_t ret = responsePayload(buf);
@@ -519,6 +543,7 @@ uint8_t DFRobot_ID809::merge(){
     char data[3] = {0};
     data[2] = _number;
     pCmdPacketHeader_t header = pack(CMD_TYPE, CMD_MERGE, data, 3);
+    if (header == NULL) return ERR_ID809;                                               // if malloc call failed exit 
     sendPacket(header);
     free(header);
     uint8_t ret = responsePayload(buf);
@@ -756,5 +781,3 @@ String DFRobot_ID809::getErrorDescription()
     }
     return "";
 }
-
-
