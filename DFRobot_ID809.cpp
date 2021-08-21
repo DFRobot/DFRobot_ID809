@@ -709,7 +709,7 @@ uint8_t DFRobot_ID809::loadFingerprint(uint8_t ID, uint8_t RamBufferID){
     return ret;
 }
 
-uint8_t DFRobot_ID809::enterSleepState(){
+uint8_t DFRobot_ID809::enterStandbyState(){
     pCmdPacketHeader_t header = pack(CMD_TYPE, CMD_ENTER_STANDBY_STATE, NULL, 0);
     sendPacket(header);
     free(header);
