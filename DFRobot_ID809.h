@@ -386,10 +386,10 @@ public:
   uint8_t loadFingerprint(uint8_t ID, uint8_t RamBufferID);
   
   /**
-   * @brief Enter sleep mode
+   * @brief Enter Standby mode
    * @return 0(succeed) or ERR_ID809
    */
-  uint8_t enterSleepState();
+  uint8_t enterStandbyState();
   
   /**
    * @brief Get error information
