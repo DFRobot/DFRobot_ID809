@@ -11,7 +11,7 @@
  * @version  V1.0
  * @date  2020-03-19
  * @get from https://www.dfrobot.com
- * @url https://github.com/cdjq/DFRobot_ID809
+ * @url https://github.com/DFRobot/DFRobot_ID809
 */
 
 #include <DFRobot_ID809.h>
