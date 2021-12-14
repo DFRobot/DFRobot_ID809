@@ -488,19 +488,21 @@ uint8_t DFRobot_ID809::ctrlLED(eLEDMode_t mode,eLEDColor_t color,uint8_t blinkCo
 	} else if(mode == 5){
 		data[0] = 3;
 	}
-	if(color = eLEDRed){
-      data[2] = data[1] = color +0x82;
-    }else if(color = eLEDBlue){
-	  data[2] = data[1] = color +0x84;
-	}else{
-		
-		data[2] = data[1] = color +0x86;
+	if(color == eLEDGreen){
+          data[2] = data[1] =  0x84;
+        }else if(color == eLEDRed){
+	  data[2] = data[1] = 0x82;
+	}else if(color == eLEDYellow){
+	  data[2] = data[1] = 0x86;
+	}else if(color == eLEDBlue){
+	  data[2] = data[1] = 0x81;
+	}else if(color == eLEDCyan){
+	  data[2] = data[1] = 0x85;
+	}else if(color == eLEDMagenta){
+	  data[2] = data[1] = 0x83;
+	}else {
+	  data[2] = data[1] = 0x87;
 	}
-		
-	
-	data[3] = blinkCount;  
-	  
-	  
   }
     pCmdPacketHeader_t header = pack(CMD_TYPE, CMD_SLED_CTRL, data, 4);
     sendPacket(header);
