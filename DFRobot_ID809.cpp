@@ -27,6 +27,19 @@ DFRobot_ID809::~DFRobot_ID809(){
 
 bool DFRobot_ID809::begin(Stream &s_){
     s = &s_;
+	String str = getDeviceInfo();
+  //Serial.println(str[str.length()-1]);
+  if(str[str.length()-1] == '4'){
+	    
+	   FINGERPRINT_CAPACITY   =    80 ;
+	  
+	  //Serial.println(str[str.length()-1]);
+  }else if(str[str.length()-1] == '3'){
+	  //Serial.println(str[str.length()-1]);
+	   FINGERPRINT_CAPACITY  =   200 ;
+	  
+  }
+	
     if(s == NULL){
         return false;
     }
@@ -459,9 +472,36 @@ String DFRobot_ID809::getModuleSN(){
 
 uint8_t DFRobot_ID809::ctrlLED(eLEDMode_t mode,eLEDColor_t color,uint8_t blinkCount){
     char data[4] = {0};
+  if(FINGERPRINT_CAPACITY == 80){
     data[0] = mode;
     data[2] = data[1] = color;
     data[3] = blinkCount;
+  }else{
+	if(mode == 1){
+	  data[0] = 2;
+	} else if(mode == 2){
+		data[0] = 4;
+	} else if(mode == 3){
+	    data[0] = 1;
+	} else if(mode == 4){
+		data[0] = 0;
+	} else if(mode == 5){
+		data[0] = 3;
+	}
+	if(color = eLEDRed){
+      data[2] = data[1] = color +0x82;
+    }else if(color = eLEDBlue){
+	  data[2] = data[1] = color +0x84;
+	}else{
+		
+		data[2] = data[1] = color +0x86;
+	}
+		
+	
+	data[3] = blinkCount;  
+	  
+	  
+  }
     pCmdPacketHeader_t header = pack(CMD_TYPE, CMD_SLED_CTRL, data, 4);
     sendPacket(header);
     free(header);

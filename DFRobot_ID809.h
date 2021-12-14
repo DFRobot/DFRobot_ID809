@@ -66,7 +66,7 @@ typedef struct{
 class DFRobot_ID809{
 public: 
 
-#define FINGERPRINT_CAPACITY     80      //Fingerprint module capacity
+//#define FINGERPRINT_CAPACITY     80      //Fingerprint module capacity
 #define MODULE_SN_SIZE           16      //Module SN length 
 
 
@@ -398,6 +398,7 @@ public:
   String getErrorDescription();
   
   bool setDbgSerial(Stream &s_){dbg = &s_; return true;}
+    uint16_t FINGERPRINT_CAPACITY = 80;
 protected:
    /**
    * @brief Set parameter 
