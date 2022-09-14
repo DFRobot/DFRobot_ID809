@@ -42,7 +42,7 @@ void setup(){
 
 void loop(){
   Serial.print("Module baud rate:");
-  Serial.println(ID809_BPS[i-1]);
+  Serial.println(ID809_BPS[i]);
   Serial.println("-----------------------------");
   delay(1000);
 }
