@@ -27,8 +27,11 @@ DFRobot_ID809::~DFRobot_ID809(){
 
 bool DFRobot_ID809::begin(Stream &s_){
     s = &s_;
+	if(isConnected() == false){
+		return false;
+	}
 	String str = getDeviceInfo();
-  //Serial.println(str[str.length()-1]);
+	dbg=&Serial;
   if(str[str.length()-1] == '4'){
 	    
 	   FINGERPRINT_CAPACITY   =    80 ;
@@ -890,6 +893,7 @@ pCmdPacketHeader_t DFRobot_ID809::pack(uint8_t type, uint16_t cmd, const char *p
 
 
 void DFRobot_ID809::sendPacket(pCmdPacketHeader_t header){
+	delay(10);
     s->write((uint8_t *)header,_PacketSize);
 }
 
@@ -998,16 +1002,20 @@ size_t DFRobot_ID809::readN(void* buffer, size_t len){
     size_t offset = 0,left = len;
     uint8_t *buf = (uint8_t*)buffer;
     long long curr = millis();
+	//Serial.print("recv->");
     while(left){
         if(s->available()){
             buf[offset++] = s->read();
+            //Serial.print(buf[offset-1]);
+			//Serial.print(" ");
             left--;
         }
-        if(millis() - curr > 5000){
+        if(millis() - curr > 1000){
             LDBG("----------!!!!!!!!!recv timeout----------");
             break;
         }
     }
+	//Serial.println();
     return offset;
 }
 

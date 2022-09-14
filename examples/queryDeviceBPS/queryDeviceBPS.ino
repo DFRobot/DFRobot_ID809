@@ -30,15 +30,13 @@ void setup(){
   /*Init print serial port */
   Serial.begin(9600);
   /*Test module baud rate */
-  do{
-    /*Init FPSerial*/
-    Serial.print(".");
-    FPSerial.begin(ID809_BPS[i]);
-    /*Take FPSerial as communication port of fingerprint module */
-    fingerprint.begin(FPSerial);
+  FPSerial.begin(ID809_BPS[i]);
+  Serial.print(".");
+  while(fingerprint.begin(FPSerial) == false){
     i++;
-    if(i > 4) i = 0;
-  }while(fingerprint.isConnected() == false);
+    FPSerial.begin(ID809_BPS[i]);
+    Serial.print(".");
+  }
   Serial.println(" ");
 }
 
