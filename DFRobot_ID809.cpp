@@ -148,15 +148,20 @@ String DFRobot_ID809::getDeviceInfo(){
         return "";
     }
     uint16_t dataLen = buf[0]+(buf[1]<<8)+1;
-    if((data = (char *)malloc(dataLen)) == NULL){
+    if((data = (char *)malloc(dataLen+10)) == NULL){
         LDBG("no memory!!!\r\n");
         while(1);
     }
     data[dataLen] = 0;
     result = responsePayload(data);
     LDBG("result=");LDBG(result);
-    String ret = String(data);
+    String ret = "";
+	
+    for(uint16_t i = 0;i < strlen(data);i++){
+      ret += data[i];
+    }
     free(data);
+	LDBG("result=1");
     return ret;
 }
 
@@ -399,7 +404,7 @@ uint8_t DFRobot_ID809::downLoadImage(uint16_t id,uint8_t * temp)
   if(ret != ERR_SUCCESS) {
     return ERR_ID809;
   }
-  char *tempData= (char *)malloc(500);
+  char *tempData= (char *)malloc(500+10);
   for(uint8_t i =0 ;i<52;i++){
      tempData[0] = i;
 	 tempData[1] = 0;
@@ -452,6 +457,7 @@ uint8_t DFRobot_ID809::receiveImageData(uint8_t * image){
 }
 String DFRobot_ID809::getModuleSN(){
     char *data;
+	String ret = "";
     pCmdPacketHeader_t header = pack(CMD_TYPE, CMD_GET_MODULE_SN, NULL, 0);
     sendPacket(header);
     free(header);
@@ -461,14 +467,17 @@ String DFRobot_ID809::getModuleSN(){
         return "";
     }
     uint16_t dataLen = buf[0]+(buf[1]<<8)+1;
-    if((data = (char *)malloc(dataLen)) == NULL){
+    if((data = (char *)malloc(dataLen+10)) == NULL){
         LDBG("no memory!!!\r\n");
         while(1);
     }
     data[dataLen] = 0;
     result = responsePayload(data);
     LDBG("result=");LDBG(result);
-    String ret = String(data);
+    for(uint16_t i = 0;i < strlen(data);i++){
+      ret += data[i];
+    }
+    //String ret = String(data);
     free(data);
     return ret;
 }
@@ -582,7 +591,7 @@ uint8_t DFRobot_ID809::getEnrolledIDList(uint8_t* list)
     uint8_t ret = responsePayload(buf);
     LDBG("ret=");LDBG(ret);
     uint16_t dataLen = buf[0]+(buf[1]<<8);
-    if((data = (char *)malloc(dataLen)) == NULL){
+    if((data = (char *)malloc(dataLen+10)) == NULL){
         LDBG("no memory!!!\r\n");
         while(1);
     }
@@ -598,6 +607,7 @@ uint8_t DFRobot_ID809::getEnrolledIDList(uint8_t* list)
             }
         }
     }
+    LDBG("dataLen =");
     free(data);
     return ret;
 }
