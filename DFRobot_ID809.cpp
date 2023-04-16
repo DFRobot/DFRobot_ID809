@@ -349,6 +349,8 @@ uint8_t DFRobot_ID809::getFingerImage(uint8_t *image)
        memcpy(image+i*496,tempData+2,496);
   }
   free(tempData);
+
+  return ERR_SUCCESS;
 }
 uint8_t DFRobot_ID809::getQuarterFingerImage(uint8_t *image){
 
@@ -385,6 +387,7 @@ uint8_t DFRobot_ID809::getQuarterFingerImage(uint8_t *image){
        memcpy(image+i*496,tempData+2,496);
   }
   free(tempData);
+  return ERR_SUCCESS;
 
 }
 uint8_t DFRobot_ID809::downLoadImage(uint16_t id,uint8_t * temp)
@@ -453,6 +456,7 @@ uint8_t DFRobot_ID809::receiveImageData(uint8_t * image){
   if(ret != ERR_SUCCESS) {
     return ERR_ID809;
   }
+  return ERR_SUCCESS;
 
 }
 String DFRobot_ID809::getModuleSN(){
