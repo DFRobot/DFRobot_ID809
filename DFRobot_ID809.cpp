@@ -8,6 +8,10 @@
  * @date  2020-03-19
  * @get from https://www.dfrobot.com
  * @url https://github.com/cdjq/DFRobot_ID809
+ 
+ * ------------------------------------------ *
+ * Patch: 28.02.2026 | Berlin | Saurabh Datta
+ * ------------------------------------------ *
  */
 
 #include <DFRobot_ID809.h>
@@ -349,6 +353,7 @@ uint8_t DFRobot_ID809::getFingerImage(uint8_t *image)
        memcpy(image+i*496,tempData+2,496);
   }
   free(tempData);
+  return 0;
 }
 uint8_t DFRobot_ID809::getQuarterFingerImage(uint8_t *image){
 
@@ -385,7 +390,7 @@ uint8_t DFRobot_ID809::getQuarterFingerImage(uint8_t *image){
        memcpy(image+i*496,tempData+2,496);
   }
   free(tempData);
-
+  return 0;
 }
 uint8_t DFRobot_ID809::downLoadImage(uint16_t id,uint8_t * temp)
 {
@@ -453,7 +458,7 @@ uint8_t DFRobot_ID809::receiveImageData(uint8_t * image){
   if(ret != ERR_SUCCESS) {
     return ERR_ID809;
   }
-
+ return 0;
 }
 String DFRobot_ID809::getModuleSN(){
     char *data;
