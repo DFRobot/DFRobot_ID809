@@ -252,8 +252,8 @@ FireBeetle M0      |         √    |              |             |
 
 
 ## History
-
-- Data 2020-3-26
+- Patch: 28.02.2026 (V0.2)
+- Original Data 2020-3-26
 - Version V0.1
 
 
